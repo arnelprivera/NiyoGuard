@@ -105,6 +105,14 @@
                         <span class="eyebrow">THE PROTECTION</span>
                         <h2>Build the <span class="grad">Protection</span></h2>
                     </div>
+                    <div class="rsteps" id="rsteps" aria-hidden="true">
+                        <div class="rbar"><i id="rfill"></i></div>
+                        <ol>
+                            <li><b>01</b><span>Detect</span><small>IR sensors spot rodent movement near the tree.</small></li>
+                            <li><b>02</b><span>Deter</span><small>Ultrasonic emitters work to discourage rodents.</small></li>
+                            <li><b>03</b><span>Alert</span><small>Bluetooth and 4G SMS keep the farmer informed.</small></li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </section>
@@ -315,9 +323,8 @@
                     <form class="of" id="of" novalidate>
                         <div class="orow">
                             <label>Full Name<input name="name" autocomplete="name" placeholder="Juan Dela Cruz" /><small class="ferr"></small></label>
-                            <label>Contact Number<input name="phone" type="tel" autocomplete="tel" placeholder="+63 912 345 6789" /><small class="ferr"></small></label>
+                            <label>Email Address<em class="opt"></em><input name="email" type="email" autocomplete="email" placeholder="you@email.com" /><small class="ferr"></small></label>
                         </div>
-                        <label>Email Address<input name="email" type="email" autocomplete="email" placeholder="you@email.com" /><small class="ferr"></small></label>
                         <label>Delivery Address<textarea name="address" rows="3" autocomplete="street-address" placeholder="Complete delivery address"></textarea><small class="ferr"></small></label>
                         <div class="oq">
                             <span>Quantity</span>
@@ -327,9 +334,12 @@
                         </div>
                         <label>Notes (Optional)<textarea name="notes" rows="2" placeholder="Any special instructions"></textarea></label>
                         <div class="osum"><span id="sl">NiyoGuard × 1</span><span>Total: <b id="st">₱13,900</b></span></div>
-                        <button class="btn pri osend" type="submit">Send Order</button>
+                        <div class="omth" role="radiogroup" aria-label="Send order by">
+                            <label><input type="radio" name="method" value="email" checked /><span>Email</span></label>
+                            <label><input type="radio" name="method" value="sms" /><span>Text Message</span></label>
+                        </div>
+                        <button class="btn pri osend" type="submit" id="osb">Send Order by Email</button>
                         <p class="onote" id="om" role="status" hidden></p>
-                        <p class="oalt"><a href="#" id="omail">Use your default email app instead</a></p>
                     </form>
                 </div>
             </div>

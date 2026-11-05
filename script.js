@@ -159,6 +159,9 @@ function scene(f) {
 }
 const rs = $("#reveal"),
     rt = $("#rtop");
+const rsl = $$("#rsteps li"),
+    rfill = $("#rfill"),
+    rcut = [0.3, 0.55, 0.8];
 $$(".svgw").forEach((w, i) => (w.innerHTML = scene(i)));
 let rq = false,
     nar = false;
@@ -177,6 +180,8 @@ function rp() {
         d = r.height - innerHeight,
         p = reduce || d <= 0 ? 1 : Math.min(1, Math.max(0, -r.top / d));
     rt.style.clipPath = `circle(${p * 150}% at 50% 50%)`;
+    rfill.style.transform = `scaleX(${p})`;
+    rsl.forEach((li, i) => li.classList.toggle("on", p >= rcut[i]));
     $$(".svgw").forEach((w) => (w.style.transform = `scale(${1 + 0.15 * p})`));
     const rt2 = $("#rtop .rat");
     if (rt2) {
@@ -243,8 +248,9 @@ document.addEventListener("click", (e) => {
     if (e.target.closest("[data-close]")) e.target.closest("dialog").close();
     if (e.target.tagName === "DIALOG") e.target.close();
 });
-/* ===== Order form: opens a Gmail compose window ===== */
+/* ===== Order form ===== */
 const ORDER_EMAIL = "riveraarnel556@gmail.com";
+const ORDER_PHONE = "+639000000000";
 const form = $("#of");
 const qv = $("#qv");
 const syncOrder = (fromInput) => {
@@ -277,8 +283,6 @@ qv.addEventListener("change", () => {
 syncOrder();
 const checks = {
     name: (v) => (v.trim() ? "" : "Enter your full name."),
-    phone: (v) =>
-        v.replace(/\D/g, "").length >= 7 ? "" : "Enter a valid contact number.",
     email: (v) =>
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : "Enter a valid email address.",
     address: (v) => (v.trim() ? "" : "Enter your delivery address."),
@@ -300,43 +304,63 @@ const orderParts = () => {
             "Total: " + total,
             "",
             "Full name: " + val("name"),
-            "Contact number: " + val("phone"),
-            "Email: " + val("email"),
+            "Email: " + (val("email") || "Not provided"),
             "Delivery address: " + val("address"),
             "Notes: " + (val("notes") || "None"),
         ].join("\r\n"),
     };
 };
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
+const isRequired = (n, method) =>
+    n === "email" ? method === "email" : true;
+const sendOrder = (method) => {
     qty = Math.min(99, Math.max(1, parseInt(qv.value, 10) || 1));
     syncOrder();
     let first = null;
     for (const [n, check] of Object.entries(checks)) {
         const i = form.elements[n],
-            msg = check(i.value);
+            msg = !i.value.trim() && !isRequired(n, method) ? "" : check(i.value);
         i.closest("label").querySelector("small").textContent = msg;
         i.setAttribute("aria-invalid", !!msg);
         if (msg && !first) first = i;
     }
     if (first) return first.focus();
     const o = orderParts();
-    window.open(
-        "https://mail.google.com/mail/?view=cm&fs=1&to=" + ORDER_EMAIL +
-        "&su=" + encodeURIComponent(o.subject) +
-        "&body=" + encodeURIComponent(o.body),
-        "_blank",
-        "noopener",
-    );
+    const enc = encodeURIComponent;
+    const plain = o.body.replace(/\r\n/g, "\n");
     const m = $("#om");
-    m.textContent = "Gmail opened in a new tab with your order. Press Send in Gmail to complete it.";
+    if (method === "sms") {
+        location.href = "sms:" + ORDER_PHONE + "?&body=" + enc(plain);
+        m.textContent = "Your messaging app should open with your order. Press Send to complete it.";
+    } else if (matchMedia("(pointer:coarse)").matches) {
+        location.href = "mailto:" + ORDER_EMAIL + "?subject=" + enc(o.subject) + "&body=" + enc(o.body);
+        m.textContent = "Your email app should open with your order. Press Send to complete it.";
+    } else {
+        window.open(
+            "https://mail.google.com/mail/?view=cm&fs=1&to=" + ORDER_EMAIL + "&su=" + enc(o.subject) + "&body=" + enc(o.body),
+            "_blank",
+            "noopener",
+        );
+        m.textContent = "Your email draft opened in a new tab. Press Send to complete your order.";
+    }
     m.hidden = false;
-});
-$("#omail").addEventListener("click", (e) => {
+};
+form.addEventListener("submit", (e) => {
     e.preventDefault();
-    e.preventDefault();
-    const o = orderParts();
-    location.href =
-        "mailto:" + ORDER_EMAIL + "?subject=" + encodeURIComponent(o.subject) +
-        "&body=" + encodeURIComponent(o.body);
+    sendOrder(form.elements.method.value);
 });
+const methodLabels = { email: "Email", sms: "Text Message" };
+form.querySelectorAll('input[name="method"]').forEach((r) =>
+    r.addEventListener("change", () => {
+        applyMethod(r.value);
+    }),
+);
+function applyMethod(method) {
+    $("#osb").textContent = "Send Order by " + methodLabels[method];
+    ["email"].forEach((n) => {
+        const i = form.elements[n];
+        i.closest("label").querySelector(".opt").textContent = isRequired(n, method) ? "" : " (Optional)";
+        i.closest("label").querySelector("small").textContent = "";
+        i.removeAttribute("aria-invalid");
+    });
+}
+applyMethod(form.elements.method.value);
