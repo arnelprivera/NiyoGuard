@@ -58,6 +58,7 @@
                 <div class="show rv">
                     <div class="vid">
                         <video id="heroVid" src="niyoguard-video.mp4" poster="niyoguard-video-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="NiyoGuard device mounted on a coconut tree"></video>
+                        <button type="button" class="vc" data-open="parts">View components</button>
                     </div>
                     <div class="info">
                         <h3>NiyoGuard IoT Device</h3>
@@ -309,7 +310,7 @@
                 </div>
                 <div class="oc rv">
                     <div class="op">
-                        <div class="opic"><img src="NiyoGuarddevice.jpg" alt="NiyoGuard IoT Device" /></div>
+                        <div class="opic"><img src="NiyoGuarddevice.jpg" alt="NiyoGuard IoT Device" /><button type="button" class="vc" data-open="parts">View components</button></div>
                         <h3>NiyoGuard IoT Device</h3>
                         <p class="oprice"><b id="up">₱13,900</b> <small>per unit</small></p>
                         <p class="olab">FEATURES</p>
@@ -358,6 +359,36 @@
             <p class="copy">©2026 NiyoGuard</p>
         </div>
     </footer>
+
+    <dialog id="parts">
+        <button class="x" data-close aria-label="Close">×</button>
+        <span class="eyebrow">COMPONENTS</span>
+        <h2>Farm Monitoring Unit</h2>
+        <div class="pt-wrap">
+            <table class="pt">
+                <thead>
+                    <tr><th>Module / Component</th><th>Quantity</th><th>Est. Total</th></tr>
+                </thead>
+                <tbody>
+                        <tr><td>ESP32-S3 + SX1262 LoRa Board (budget variant)</td><td>1</td><td>PHP 1,300</td></tr>
+                        <tr><td>Outdoor IR Break-Beam Sensor</td><td>1-2 sets</td><td>PHP 600</td></tr>
+                        <tr><td>Ultrasonic Transducers</td><td>2-4</td><td>PHP 1,200</td></tr>
+                        <tr><td>Compatible Ultrasonic Driver Circuit</td><td>1 set</td><td>PHP 1,200</td></tr>
+                        <tr><td>Solar Panel</td><td>1</td><td>PHP 1,000</td></tr>
+                        <tr><td>Rechargeable Battery Pack</td><td>1</td><td>PHP 900</td></tr>
+                        <tr><td>Solar Charge Controller</td><td>1</td><td>PHP 600</td></tr>
+                        <tr><td>Voltage Regulator and Battery Protection</td><td>1 set</td><td>PHP 300</td></tr>
+                        <tr><td>Battery Monitoring Module</td><td>1</td><td>PHP 200</td></tr>
+                        <tr><td>LoRa Antenna</td><td>1</td><td>PHP 250</td></tr>
+                        <tr><td>IP65 Weatherproof Enclosure</td><td>1</td><td>PHP 600</td></tr>
+                        <tr><td>PCB, Wires, Switches, and Connectors</td><td>1 set</td><td>PHP 750</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr><td>Subtotal</td><td></td><td>PHP 8,900</td></tr>
+                </tfoot>
+            </table>
+        </div>
+    </dialog>
 
     <dialog id="specs" class="full">
         <button class="x" data-close aria-label="Close">×</button>

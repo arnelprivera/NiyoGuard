@@ -2725,3 +2725,87 @@ header nav .acts {
     font-style: normal;
     font-weight: 500;
 }
+
+.vc {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    border: 0;
+    background: rgba(20, 45, 8, 0.55);
+    color: #fff;
+    font: 800 1.05rem var(--head);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.vid:hover .vc,
+.opic:hover .vc,
+.vc:focus-visible {
+    opacity: 1;
+}
+
+@media (hover: none) {
+    .vc {
+        inset: auto 12px 12px auto;
+        width: auto;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(20, 45, 8, 0.8);
+        opacity: 1;
+        font-size: 0.85rem;
+    }
+}
+
+.opic {
+    position: relative;
+}
+
+dialog#parts {
+    width: min(720px, 100% - 28px);
+}
+
+.pt-wrap {
+    margin-top: 16px;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.pt {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.pt th,
+.pt td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+.pt th:last-child,
+.pt td:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.pt thead th,
+.pt tfoot td {
+    background: var(--tint);
+    font-weight: 800;
+    color: var(--dark);
+}
+
+.pt tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.pt tfoot td {
+    border-top: 1px solid var(--line);
+    border-bottom: 0;
+}

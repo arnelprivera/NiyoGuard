@@ -250,7 +250,7 @@ document.addEventListener("click", (e) => {
 });
 /* ===== Order form ===== */
 const ORDER_EMAIL = "riveraarnel556@gmail.com";
-const ORDER_PHONE = "+639000000000";
+const ORDER_PHONE = "+639159319555";
 const form = $("#of");
 const qv = $("#qv");
 const syncOrder = (fromInput) => {
