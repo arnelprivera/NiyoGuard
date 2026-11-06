@@ -304,21 +304,19 @@ const orderParts = () => {
             "Total: " + total,
             "",
             "Full name: " + val("name"),
-            "Email: " + (val("email") || "Not provided"),
+            ...(val("email") ? ["Email: " + val("email")] : []),
             "Delivery address: " + val("address"),
             "Notes: " + (val("notes") || "None"),
         ].join("\r\n"),
     };
 };
-const isRequired = (n, method) =>
-    n === "email" ? method === "email" : true;
 const sendOrder = (method) => {
     qty = Math.min(99, Math.max(1, parseInt(qv.value, 10) || 1));
     syncOrder();
     let first = null;
     for (const [n, check] of Object.entries(checks)) {
         const i = form.elements[n],
-            msg = !i.value.trim() && !isRequired(n, method) ? "" : check(i.value);
+            msg = n === "email" && method !== "email" ? "" : check(i.value);
         i.closest("label").querySelector("small").textContent = msg;
         i.setAttribute("aria-invalid", !!msg);
         if (msg && !first) first = i;
@@ -348,7 +346,7 @@ form.addEventListener("submit", (e) => {
     e.preventDefault();
     sendOrder(form.elements.method.value);
 });
-const methodLabels = { email: "Email", sms: "Text Message" };
+const methodLabels = { email: "Email", sms: "Number" };
 form.querySelectorAll('input[name="method"]').forEach((r) =>
     r.addEventListener("change", () => {
         applyMethod(r.value);
@@ -356,11 +354,15 @@ form.querySelectorAll('input[name="method"]').forEach((r) =>
 );
 function applyMethod(method) {
     $("#osb").textContent = "Send Order by " + methodLabels[method];
+    const show = method === "email";
     ["email"].forEach((n) => {
-        const i = form.elements[n];
-        i.closest("label").querySelector(".opt").textContent = isRequired(n, method) ? "" : " (Optional)";
-        i.closest("label").querySelector("small").textContent = "";
+        const i = form.elements[n],
+            l = i.closest("label");
+        l.style.display = show ? "" : "none";
+        l.querySelector("small").textContent = "";
         i.removeAttribute("aria-invalid");
+        if (!show) i.value = "";
     });
+    $(".orow").style.gridTemplateColumns = show ? "" : "1fr";
 }
 applyMethod(form.elements.method.value);
