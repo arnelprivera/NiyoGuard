@@ -366,3 +366,112 @@ function applyMethod(method) {
     $(".orow").style.gridTemplateColumns = show ? "" : "1fr";
 }
 applyMethod(form.elements.method.value);
+
+const XL = {
+    0: ["ESP32-S3 Board", "in", 64, 100],
+    4: ["4G LTE Module", "in", 64, 200],
+    3: ["Ultrasonic Driver", "in", 64, 300],
+    7: ["MPPT Controller", "in", 64, 400],
+    8: ["LiFePO\u2084 Battery", "in", 64, 500],
+    9: ["4S BMS", "in", 64, 600],
+    10: ["Buck Converter", "in", 496, 100],
+    11: ["Voltage Monitor", "in", 496, 200],
+    12: ["Fuse + Holder", "in", 496, 300],
+    13: ["Cell Holder", "in", 496, 400],
+    15: ["PCB + Wiring", "in", 496, 500],
+    6: ["30W Solar Panel", "panel", 280, 66, 280, 150, 200, 100],
+    14: ["IP65 Enclosure", "box", 280, 330, 280, 330, 170, 150],
+    5: ["LTE Antenna", "ant", 400, 185, 398, 235, 14, 110],
+    1: ["IR Break-Beam", "ir", 280, 640, 280, 445, 64, 48],
+    2: ["Ultrasonic Transducers", "pair", 280, 520, 280, 330, 44, 44],
+};
+const NS = "http://www.w3.org/2000/svg";
+const xs = $("#xs");
+const xb = $("#xb");
+const mk = (tag, attrs, parent) => {
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(el);
+    return el;
+};
+const xrows = $$("#parts tbody tr").map((r) => [...r.cells].map((c) => c.textContent.trim()));
+const place = (g, x, y, s) => g.style.setProperty("--t", "translate(" + x + "px," + y + "px) scale(" + s + ")");
+const buildX = () => {
+    const lines = mk("g", {}, xs),
+        parts = mk("g", {}, xs),
+        labels = mk("g", {}, xs);
+    let order = 0;
+    Object.keys(XL).forEach((k) => {
+        const row = xrows[k],
+            c = XL[k],
+            n = +k + 1,
+            internal = c[1] === "in",
+            ex = c[2],
+            ey = c[3],
+            ax = internal ? 280 : c[4],
+            ay = internal ? 330 : c[5],
+            w = internal ? 104 : c[6] || 112,
+            hh = internal ? 46 : c[7] || 46;
+        const delay = order++ * 55 + "ms";
+        mk("line", { class: "ln", x1: 280, y1: 330, x2: ex, y2: ey, style: "transition-delay:" + delay }, lines);
+        const make = (px, py, qx, qy, rw, rh, shape) => {
+            const g = mk("g", { class: "px " + c[1] + (internal ? " in" : ""), "data-k": k, tabindex: 0, style: "transition-delay:" + delay }, parts);
+            g.style.setProperty("--a", "translate(" + qx + "px," + qy + "px) scale(" + (internal ? 0.45 : 1) + ")");
+            g.style.setProperty("--e", "translate(" + px + "px," + py + "px) scale(1)");
+            if (shape === "circle") {
+                mk("circle", { r: 22, class: "sh" }, g);
+                mk("circle", { r: 9, class: "sh2" }, g);
+            } else {
+                mk("rect", { x: -rw / 2, y: -rh / 2, width: rw, height: rh, rx: c[1] === "box" ? 16 : 10, class: "sh" }, g);
+            }
+            if (c[1] === "panel") {
+                for (let i = 1; i < 6; i++) mk("line", { x1: -100 + i * 33.3, y1: -50, x2: -100 + i * 33.3, y2: 50, class: "gl" }, g);
+                for (let i = 1; i < 3; i++) mk("line", { x1: -100, y1: -50 + i * 33.3, x2: 100, y2: -50 + i * 33.3, class: "gl" }, g);
+            }
+            if (c[1] === "box") mk("text", { class: "bx", y: 6, "text-anchor": "middle" }, g).textContent = "NiyoGuard";
+            const pin = mk("g", { class: "pin", transform: "translate(" + (-rw / 2 + 4) + "," + (-rh / 2 + 4) + ")" }, g);
+            mk("circle", { r: 10 }, pin);
+            mk("text", { y: 4, "text-anchor": "middle" }, pin).textContent = n;
+            return g;
+        };
+        if (c[1] === "pair") {
+            make(ex - 50, ey, 173, 330, 44, 44, "circle");
+            make(ex + 50, ey, 387, 330, 44, 44, "circle");
+        } else {
+            make(ex, ey, ax, ay, w, hh);
+        }
+        const lb = mk("g", { class: "lb", "data-k": k, transform: "translate(" + ex + "," + (ey + (c[1] === "pair" ? 22 : hh / 2) + 18) + ")", style: "transition-delay:" + delay }, labels);
+        mk("text", { class: "l1", "text-anchor": "middle" }, lb).textContent = c[0];
+        mk("text", { class: "l2", y: 16, "text-anchor": "middle" }, lb).textContent = row[2];
+    });
+    const focus = (k) => {
+        xs.classList.toggle("hl", k !== null);
+        $$("#xs [data-k]").forEach((el) => el.classList.toggle("on", el.dataset.k === k));
+    };
+    xs.addEventListener("pointerover", (e) => {
+        const t = e.target.closest("[data-k]");
+        if (t && xs.classList.contains("ex")) focus(t.dataset.k);
+    });
+    xs.addEventListener("pointerleave", () => focus(null));
+    xs.addEventListener("focusin", (e) => {
+        const t = e.target.closest("[data-k]");
+        if (t) focus(t.dataset.k);
+    });
+    xs.addEventListener("focusout", () => focus(null));
+};
+buildX();
+const setX = (on) => {
+    xs.classList.toggle("ex", on);
+    xs.classList.remove("hl");
+    $$("#xs .on").forEach((el) => el.classList.remove("on"));
+    xb.textContent = on ? "Assemble" : "Explode";
+};
+xb.addEventListener("click", () => setX(!xs.classList.contains("ex")));
+let xt = 0;
+new MutationObserver(() => {
+    clearTimeout(xt);
+    const d = $("#parts");
+    if (!d.open) return;
+    setX(false);
+    xt = setTimeout(() => setX(!reduce), 500);
+}).observe($("#parts"), { attributes: true, attributeFilter: ["open"] });
