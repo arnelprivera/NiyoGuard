@@ -75,7 +75,9 @@ $$("video").forEach((v) => {
 /* ===== Ticker ===== */
 const tkItems = [
     "Solar-Powered Operation",
-    "Ultrasonic Deterrence",
+    "365 nm UV-A Beetle Bait",
+    "Electric Beetle Kill Grid",
+    "Ultrasonic Leaf-Pest Deterrence",
     "Bluetooth and 4G SMS Alerts",
     "Smart Farm Protection",
     "Sustainable Technology",
@@ -105,7 +107,7 @@ $$(".pn").forEach((p) => {
     });
     p.addEventListener("click", on);
 });
-/* ===== Scroll-reveal scene (farm, device and rat) ===== */
+/* ===== Scroll-reveal scene (farm, device and Coconut Rhinoceros Beetle) ===== */
 function scene(f) {
     const ol =
         'fill="none" stroke="#3F7A12" stroke-opacity=".4" stroke-width="1.5" stroke-dasharray="6 6"',
@@ -140,7 +142,7 @@ function scene(f) {
         }
         return g + "</g>";
     };
-    const rat = `<g class="rat" style="transform:translate(380px,492px)"><g transform="scale(1.4)" ${f ? 'fill="#3a4a2c" stroke="#fff" stroke-width="1.6"' : ol}><path d="M-24 -6Q-48 -4 -58 8Q-46 0 -26 4" fill="none"/><ellipse cx="0" cy="-12" rx="24" ry="12"/><ellipse cx="26" cy="-14" rx="11" ry="8"/><path d="M36 -16L47 -12L36 -9Z"/><circle cx="22" cy="-22" r="4.5"/><path d="M-10 -2L-12 6M10 -2L12 6" fill="none"/></g></g>`;
+    const pest = `<g class="pest" style="transform:translate(380px,492px)"><g transform="scale(1.4)" ${f ? 'fill="#5a3a22" stroke="#fff" stroke-width="1.6"' : ol}><ellipse cx="0" cy="-10" rx="22" ry="11"/><ellipse cx="24" cy="-9" rx="8" ry="7"/><path d="M27 -14Q34 -18 38 -27Q41 -17 33 -9Z"/><circle cx="28" cy="-11" r="1.6"/><path d="M-16 -12Q0 -20 16 -12M-10 -1L-14 7M0 0L0 8M10 -1L14 7" fill="none"/></g></g>`;
     return (
         `<svg viewBox="-300 0 1600 560" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M-300 530Q-100 520 0 520Q250 470 500 510T1000 500Q1150 495 1300 505V560H-300Z" ${f ? 'fill="#2F5A0C" stroke="#7AB51D"' : ol}/>` + [
             [130, 250, 1],
@@ -153,7 +155,7 @@ function scene(f) {
         .map((a) => palm(...a))
         .join("") +
         palm(500, 300, 1.15, true) +
-        rat +
+        pest +
         "</svg>"
     );
 }
@@ -165,7 +167,7 @@ const rsl = $$("#rsteps li"),
 $$(".svgw").forEach((w, i) => (w.innerHTML = scene(i)));
 let rq = false,
     nar = false;
-/* On tall/narrow screens, frame the scene tightly around the farm so the rat stays in view */
+/* On tall/narrow screens, frame the scene tightly around the farm so the beetle stays in view */
 function fit() {
     nar = innerWidth < 700 || innerWidth / innerHeight < 1.2;
     $$(".svgw svg").forEach((s) => {
@@ -183,9 +185,9 @@ function rp() {
     rfill.style.transform = `scaleX(${p})`;
     rsl.forEach((li, i) => li.classList.toggle("on", p >= rcut[i]));
     $$(".svgw").forEach((w) => (w.style.transform = `scale(${1 + 0.15 * p})`));
-    const rt2 = $("#rtop .rat");
+    const rt2 = $("#rtop .pest");
     if (rt2) {
-        /* Narrow screens reveal the bottom of the scene later, so the rat starts running later and covers less ground */
+        /* Narrow screens reveal the bottom of the scene later, so the beetle starts moving later and covers less ground */
         const p0 = nar ? 0.4 : 0.1,
             fl = p > p0,
             x = 380 - Math.max(0, p - p0) * (nar ? 930 : 900),
@@ -380,6 +382,8 @@ const XL = {
     13: ["Cell Holder", "in", 496, 400],
     15: ["PCB + Wiring", "in", 496, 500],
     6: ["30W Solar Panel", "panel", 280, 66, 280, 150, 200, 100],
+    16: ["365 nm UV-A LED", "uv", 150, 700, 212, 445, 44, 36],
+    17: ["HV Insect Killer Grid", "zap", 410, 700, 346, 445, 56, 40],
     14: ["IP65 Enclosure", "box", 280, 330, 280, 330, 170, 150],
     5: ["LTE Antenna", "ant", 400, 185, 398, 235, 14, 110],
     1: ["IR Break-Beam", "ir", 280, 640, 280, 445, 64, 48],
@@ -428,6 +432,8 @@ const buildX = () => {
                 for (let i = 1; i < 6; i++) mk("line", { x1: -100 + i * 33.3, y1: -50, x2: -100 + i * 33.3, y2: 50, class: "gl" }, g);
                 for (let i = 1; i < 3; i++) mk("line", { x1: -100, y1: -50 + i * 33.3, x2: 100, y2: -50 + i * 33.3, class: "gl" }, g);
             }
+            if (c[1] === "uv") mk("circle", { r: 9, class: "uvc" }, g);
+            if (c[1] === "zap") for (let i = -1; i <= 1; i++) mk("line", { x1: i * 12, y1: -14, x2: i * 12, y2: 14, class: "zl" }, g);
             if (c[1] === "box") mk("text", { class: "bx", y: 6, "text-anchor": "middle" }, g).textContent = "NiyoGuard";
             const pin = mk("g", { class: "pin", transform: "translate(" + (-rw / 2 + 4) + "," + (-rh / 2 + 4) + ")" }, g);
             mk("circle", { r: 10 }, pin);
