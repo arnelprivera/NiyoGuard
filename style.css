@@ -1923,6 +1923,14 @@ dialog {
     transition-delay: 0.3s;
 }
 
+.g4 .rv:nth-child(5) {
+    transition-delay: 0.4s;
+}
+
+.g4 .rv:nth-child(6) {
+    transition-delay: 0.5s;
+}
+
 .sub {
     list-style: none;
     margin: 12px 0 0;
@@ -1954,7 +1962,7 @@ dialog {
 
 @media (min-width: 1100px) {
     .g4 {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -2116,7 +2124,7 @@ dialog {
     transform: translateZ(30px);
 }
 
-.rat {
+.btl {
     left: 52px;
     top: 76px;
     width: 58px;
@@ -2124,53 +2132,88 @@ dialog {
     transform: translateZ(26px);
 }
 
-.rat i {
+.btl i {
     position: absolute;
 }
 
 .bd2 {
     left: 8px;
     top: 6px;
-    width: 36px;
+    width: 38px;
     height: 20px;
     border-radius: 50%;
-    background: #8e8e86;
+    background: #4a2f1d;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.25);
 }
 
 .hd {
-    left: 38px;
+    left: 40px;
     top: 9px;
-    width: 20px;
-    height: 13px;
+    width: 14px;
+    height: 12px;
     border-radius: 50% 70% 70% 50%;
-    background: #a6a69e;
+    background: #5c3b24;
 }
 
-.er {
-    left: 36px;
-    top: 1px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #cfaaa2;
+.hn {
+    left: 48px;
+    top: 0;
+    width: 5px;
+    height: 12px;
+    border-radius: 4px 4px 0 0;
+    background: #2e1c10;
+    transform: rotate(28deg);
 }
 
 .ey {
-    left: 48px;
+    left: 47px;
     top: 12px;
     width: 3px;
     height: 3px;
     border-radius: 50%;
-    background: #111;
+    background: #fff;
 }
 
-.tl {
-    left: -14px;
-    top: 14px;
-    width: 26px;
-    height: 12px;
-    border-bottom: 2px solid #b79a92;
-    border-radius: 0 0 60% 40%;
+.uvg {
+    left: 30px;
+    top: 26px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155, 92, 255, 0.45), rgba(155, 92, 255, 0) 70%);
+    transform: translateZ(10px);
+}
+
+.uvb {
+    left: 55px;
+    top: 51px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #d9b8ff, #8a3dff 60%, #5a1fc7);
+    box-shadow: 0 0 22px #9b5cff;
+    color: #fff !important;
+    font: 800 0.55rem/50px var(--font) !important;
+    transform: translateZ(30px);
+}
+
+.gd {
+    left: 33px;
+    top: 24px;
+    width: 94px;
+    height: 94px;
+    border: 4px solid #2a3027;
+    border-radius: 8px;
+    background: repeating-linear-gradient(90deg, #d9b84e 0 3px, transparent 3px 14px), repeating-linear-gradient(0deg, #d9b84e 0 3px, transparent 3px 14px), #f3f5ef;
+    transform: translateZ(18px);
+}
+
+.bolt {
+    left: 62px;
+    top: 44px;
+    font-size: 2.1rem !important;
+    line-height: 1 !important;
+    transform: translateZ(50px);
 }
 
 .pcb {
@@ -2997,4 +3040,35 @@ dialog#parts {
 
 .xt b {
     white-space: nowrap;
+}
+
+
+/* Seven how-it-works panels: keep collapsed panels readable */
+@media (min-width: 981px) {
+    .pn {
+        padding: 24px 16px;
+    }
+    .pn:not(.on) .pnum {
+        font-size: 1.5rem;
+    }
+}
+
+/* Exploded view: UV-A LED and electric kill grid */
+#xs .px.uv .sh {
+    fill: #4b1fa3;
+    stroke: #2a0f66;
+}
+
+#xs .uvc {
+    fill: #d9b8ff;
+}
+
+#xs .px.zap .sh {
+    fill: #2c2f2a;
+    stroke: #d9b84e;
+}
+
+#xs .zl {
+    stroke: #d9b84e;
+    stroke-width: 2;
 }
