@@ -3,7 +3,7 @@ document.documentElement.classList.add("js");
 
 /* ===== Configuration (edit once details are finalized) ===== */
 const CONFIG = {
-    price: 13900,
+    price: 7500,
     currency: "₱",
     availability: "Availability to be confirmed",
 };
@@ -44,7 +44,7 @@ const spy = new IntersectionObserver(
         ),
     ), { rootMargin: "-40% 0px -55% 0px" },
 );
-["about", "features", "order"].forEach((id) => {
+["about", "features", "protection", "order"].forEach((id) => {
     const el = document.getElementById(id);
     if (el) spy.observe(el);
 });
@@ -219,8 +219,10 @@ if (matchMedia("(pointer:fine)").matches) {
     document.body.classList.add("cc");
     addEventListener("mousemove", (e) => {
         const m = !!$("dialog[open]");
+        /* over the AI chat widget: use the normal mouse pointer, hide the green dot */
+        const w = !!e.target.closest("#chat,.cw-fab,.cw-tip");
         document.body.classList.toggle("cc", !m);
-        cur.style.opacity = m ? 0 : 1;
+        cur.style.opacity = m || w ? 0 : 1;
         cur.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
         cur.classList.toggle(
             "big", !!e.target.closest("a,button,[data-open],.pn,input,textarea"),
