@@ -8,6 +8,7 @@
     <meta name="description" content="NiyoGuard is an IoT-powered solution that helps coconut farmers reduce Coconut Rhinoceros Beetle infestations and protect palm leaves from pests." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="asset/favicon.png" />
     <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -18,7 +19,7 @@
         <div class="wrap">
             <nav aria-label="Main">
                 <a class="brand" href="#home">
-                    <img class="logo-img" src="NiyoGuardlogo.png" alt="NiyoGuard" />
+                    <img class="logo-img" src="asset/NiyoGuardlogo-icon.png" alt="NiyoGuard" />
                     <span><b>NiyoGuard</b><small>Smart Protection for Coconut Farms.</small></span>
                 </a>
                 <ul class="links" id="links">
@@ -57,7 +58,7 @@
                 </div>
                 <div class="show rv">
                     <div class="vid">
-                        <video id="heroVid" src="niyoguard-video.mp4" poster="niyoguard-video-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="NiyoGuard device mounted on a coconut tree"></video>
+                        <video id="heroVid" src="asset/niyoguard-video.mp4" poster="asset/niyoguard-video-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="NiyoGuard device mounted on a coconut tree"></video>
                         <button type="button" class="vc" data-open="parts">View components</button>
                     </div>
                     <div class="info">
@@ -159,7 +160,7 @@
                     </div>
                 </div>
                 <div class="visual vv rv">
-                    <video id="aboutVid" src="niyoguard-3d-360.mp4" poster="niyoguard-3d-360-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="360 degree view of the NiyoGuard IoT device"></video>
+                    <video id="aboutVid" src="asset/niyoguard-3d-360.mp4" poster="asset/niyoguard-3d-360-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="360 degree view of the NiyoGuard IoT device"></video>
                 </div>
             </div>
         </section>
@@ -336,9 +337,9 @@
                 </div>
                 <div class="oc rv">
                     <div class="op">
-                        <div class="opic"><img src="NiyoGuarddevice.jpg" alt="NiyoGuard IoT Device" /><button type="button" class="vc" data-open="parts">View components</button></div>
+                        <div class="opic"><img src="asset/NiyoGuarddevice.jpg" alt="NiyoGuard IoT Device" /><button type="button" class="vc" data-open="parts">View components</button></div>
                         <h3>NiyoGuard IoT Device</h3>
-                        <p class="oprice"><b id="up">₱13,900</b> <small>per unit</small></p>
+                        <p class="oprice"><b id="up">₱7,500</b> <small>per unit</small></p>
                         <p class="olab">FEATURES</p>
                         <ul class="olist">
                             <li>IR Coconut Rhinoceros Beetle detection</li>
@@ -362,7 +363,7 @@
                             </div>
                         </div>
                         <label>Notes (Optional)<textarea name="notes" rows="2" placeholder="Any special instructions"></textarea></label>
-                        <div class="osum"><span id="sl">NiyoGuard × 1</span><span>Total: <b id="st">₱13,900</b></span></div>
+                        <div class="osum"><span id="sl">NiyoGuard × 1</span><span>Total: <b id="st">₱7,500</b></span></div>
                         <div class="omth" role="radiogroup" aria-label="Send order by">
                             <label><input type="radio" name="method" value="email" checked /><span>Email</span></label>
                             <label><input type="radio" name="method" value="sms" /><span>Number</span></label>
@@ -377,7 +378,7 @@
 
     <footer>
         <div class="wrap fm">
-            <a class="brand" href="#home"><span class="logo">N</span><span><b>NiyoGuard</b></span></a
+            <a class="brand" href="#home"><img class="logo-img" src="asset/NiyoGuardlogo-icon.png" alt="" /><span><b>NiyoGuard</b></span></a
         >
         <ul class="fl">
           <li><a href="#about">About</a></li>
@@ -395,7 +396,7 @@
         <div class="xv"><svg id="xs" viewBox="0 0 560 790" role="img" aria-label="Exploded view of the NiyoGuard device with each component and its price"></svg></div>
         <div class="xc">
             <button type="button" class="btn pri sm" id="xb">Assemble</button>
-            <p class="xt">Total: <b>PHP 10,826–12,848</b></p>
+            <p class="xt">Total: <b>PHP 7,500</b></p>
         </div>
         <details class="xd">
             <summary>View full list</summary>
@@ -425,7 +426,7 @@
                         <tr><td>12V DC High-Voltage Electric Insect Killer Grid Module</td><td>1</td><td>PHP 400–700</td></tr>
                 </tbody>
                 <tfoot>
-                    <tr><td>Total</td><td></td><td>PHP 10,826–12,848</td></tr>
+                    <tr><td>Total</td><td></td><td>PHP 7,500</td></tr>
                 </tfoot>
             </table>
         </div>
@@ -492,7 +493,26 @@
             });
         })();
     </script>
+
+    <!-- Small AI chat widget (bottom-right) -->
+    <button type="button" class="cw-fab" id="chFab" aria-label="Ablihi ang NiyoGuard chat" aria-expanded="false" aria-controls="chat">
+        <svg class="i-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+        <svg class="i-x" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="chat" id="chat" role="dialog" aria-label="NiyoGuard" hidden>
+        <div class="chh">
+            <span class="avw"><img class="ava" src="asset/NiyoGuardlogo-icon.png" alt="" aria-hidden="true" /><i class="dot" aria-hidden="true"></i></span>
+            <div><b>NiyoGuard</b><small>Mga tubag bahin sa peste sa lubi</small></div>
+            <div class="cha">
+                <button type="button" id="chNew" aria-label="Sugdi pag-usab" title="Sugdi pag-usab"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></button>
+                <button type="button" id="chClose" aria-label="Isira ang chat" title="Isira"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+            </div>
+        </div>
+        <div class="chm" id="chMsgs" role="log" aria-live="polite"></div>
+    </div>
+
     <script src="script.js" defer></script>
+    <script src="chat.js" defer></script>
 </body>
 
 </html>
