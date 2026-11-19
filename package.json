@@ -1,0 +1,8 @@
+{
+  "name": "niyoguard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NiyoGuard website with AI coconut pest assistant",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
